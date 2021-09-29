@@ -1,14 +1,48 @@
-var url = "https://beaconcha.in/api/v1/validator/leaderboard";
+//fetch api
 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", url);
-
-xhr.setRequestHeader("accept", "application/json");
-
-xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4) {
-      console.log(xhr.status);
-      console.log(xhr.responseText);
-   }};
-
-xhr.send();
+function fetchData() {
+   fetch("https://beaconcha.in/api/v1/validator/leaderboard")
+     .then((response) => {
+       //set Error
+ 
+       if (!response.ok) {
+         throw Error("ERROR");
+       }
+       return response.json();
+     })
+     .then((data) => {
+       console.log(data.data);
+ 
+       //move to element
+ 
+       const html = data.data
+         .map((user) => {
+           return (
+             '<tr class="user"><td>'+
+             user.validatorindex +
+             " </td><td>" +
+             user.rank7d +
+             " </td><td>" +
+             user.balance +
+             " </td><td>" +
+             user.performance1d +
+             " </td><td>" +
+             user.performance7d +
+             " </td><td>" +
+             user.performance31d +
+             " </td><td>" +
+             user.performance365d +
+             " </td></tr>"
+           );
+         })
+         .join(" ");
+       console.log(html);
+       document.querySelector("#app").insertAdjacentHTML("afterbegin", html);
+     })
+     .catch((error) => {
+       console.log(error);
+     });
+ }
+ 
+ fetchData();
+ 
