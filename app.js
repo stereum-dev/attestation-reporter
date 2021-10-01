@@ -11,7 +11,8 @@ function fetchData() {
        return response.json();
      })
      .then((data) => {
-       console.log(data.data);
+      //  console.log(data.data);
+      return fetch()
  
        //move to element
  
@@ -45,4 +46,6 @@ function fetchData() {
  }
  
  fetchData();
+
+ import {}
  
