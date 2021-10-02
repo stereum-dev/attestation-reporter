@@ -1,5 +1,9 @@
 
       $(document).ready(function () {
+
+        
+
+
         $.ajax({
           type: "GET",
           async: false,
@@ -18,6 +22,7 @@
                 data: {},
                 success: (data1) => {
                   //alert(data1.status)
+                  $('#table_id').DataTable();
 
                   $("#M1").append(
                     '<div class=""  > <div class="pad15" style="cursor:pointer; ;" value="' +
@@ -33,4 +38,7 @@
             });
           },
         });
+        
       });
+
+    
