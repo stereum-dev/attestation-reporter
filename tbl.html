@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"
+    />
+
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"
+    ></script>
+
+    <script src="./jsdatatableValidApiLeaderboard.js"></script>
+    <title>Document</title>
+    <script>
+      $(document).ready(function(){
+
+        var query = window.location;
+        var url = new URL(query);
+
+        var c = url.searchParams.get("link");
+
+       secondTable(c)
+
+      });
+    </script>
+  </head>
+  <body>
+      <table  id="vldTbl" class="display" style="width: 100%">
+          <thead>
+              <tr>
+                  <th>VALIDATOR</th>
+                  <th>DAY</th>
+                  <th>START BALANCE</th>
+                  <th>END BALANCE</th>
+                  <th>PROPOSED BLOCKS</th>
+                  <th>ORPHANED</th>
+                  <th>SLASHING</th>
+                  <th>MISSED BLOCKS</th>
+                  <th>MISSED ATTESTATION</th>
+                  <th>DEPOSITS AMOUNT</th>
+              </tr>
+          </thead>
+      </table>
+  </body>
+</html>

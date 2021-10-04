@@ -7,25 +7,39 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    <script src="ajax.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css"
+    />
+
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"
+    ></script>
+
+    <script src="./jsdatatableValidApiLeaderboard.js"></script>
+    <script>
+      $(document).ready(function () {
+        first_table();
+      });
+    </script>
     <title>ATTESTATION REPORT</title>
   </head>
   <body>
-    <table>
+    <table id="vldTbl" class="display" style="width: 100%">
       <thead>
         <tr>
-          <th>Validator</th>
-          <th>status</th>
-          <th>Deposits</th>
-          <th>Slashing</th>
-          <th>Orphaned</th>
-          <th>Missed</th>
+          <th>RANK</th>
+          <th>VALIDATOR</th>
+          <th>BALANCE</th>
+          <th>PERFORMANCE ONE DAY</th>
+          <th>PERFORMANCE SEVEN DAY</th>
         </tr>
       </thead>
+      <tbody id="tblIndex"></tbody>
     </table>
-
-    
   </body>
 </html>
