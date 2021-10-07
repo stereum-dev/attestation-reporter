@@ -29,11 +29,29 @@ function first_table() {
       { data: "performance7d", searchable: false },
     ],
   });
-  $("tr").on("click", function () {
-    var link = $(this).find("td:nth-child(2)").text();
+
+  function openTbl(link) {
+    console.log("validate is " + link);
     var url = "https://beaconcha.in/api/v1/validator/stats/";
-    var apiLink = url + link;
+
     window.open("/tbl.html?" + "link=" + link, "_self");
+  }
+  $("#searchBtn").on("click", () => {
+    var linkInput = $("#inputVld").val();
+    openTbl(linkInput);
+  });
+
+
+$('#inputVld').keyup(function(e){
+  if(e.keyCode == 13)
+  {
+      openTbl($("#inputVld").val())
+  }
+});
+
+  $("tr").on("click", function () {
+    var linkVld = $(this).find("td:nth-child(2)").text();
+    openTbl(linkVld);
   });
 }
 function secondTable(apilink) {
