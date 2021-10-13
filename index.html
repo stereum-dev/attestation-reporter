@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
@@ -16,6 +15,13 @@
     <link
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css"
+      integrity="sha512-/VectwrK3cVMbl6IFsHj/O+fbxfLQm5rved2LR8HnaNuIL6fs8yBXNSi25hhQCB2713sc3Cbh5a4wLRSsZvDxg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <link
       rel="stylesheet"
@@ -39,23 +45,33 @@
     <title>ATTESTATION REPORT</title>
   </head>
   <body>
-    <div>
-      <label for="inputVld">Validator Number: </label><br>
-      <input id="inputVld" type="number" placeholder="For example: 128" /><button id="searchBtn">Request</button>
+    <div class="flexVld">
+      <form class="pure-form" onsubmit="return false">
+        <label for="inputVld">Validator Number: </label><br />
+        <input
+          id="inputVld"
+          type="number"
+          onclick=""
+          placeholder="For example: 128"
+        />
+        <input type="button" class="button-success" value="Request" id="searchBtn"></input>
+      </form>
     </div>
-    <div id="mainTbl">
-      <table id="vldTbl" class="display" style="width: 100%">
-        <thead>
-          <tr>
-            <th>RANK</th>
-            <th>VALIDATOR</th>
-            <th>BALANCE</th>
-            <th>PERFORMANCE ONE DAY</th>
-            <th>PERFORMANCE SEVEN DAY</th>
-          </tr>
-        </thead>
-        <tbody id="tblIndex"></tbody>
-      </table>
+    <div class="container">
+      <div class="tblFirst" id="mainTbl">
+        <table id="vldTbl" class="display" style="width: 100%">
+          <thead>
+            <tr>
+              <th>RANK</th>
+              <th>VALIDATOR</th>
+              <th>BALANCE</th>
+              <th>PERFORMANCE ONE DAY</th>
+              <th>PERFORMANCE SEVEN DAY</th>
+            </tr>
+          </thead>
+          <tbody id="tblIndex"></tbody>
+        </table>
+      </div>
     </div>
   </body>
 </html>

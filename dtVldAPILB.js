@@ -1,3 +1,5 @@
+//it's a function to take data for first table at the beginning(leaderboard)
+
 function first_table() {
   var x = [];
   $.ajax({
@@ -7,6 +9,8 @@ function first_table() {
     data: {},
     success: (data) => {
       xdata = data.data.slice(0, 10);
+
+      //push Json to a var as a data
       for (var i in data.data) {
         x.push({
           validatorindex: data.data[i].validatorindex,
@@ -19,6 +23,7 @@ function first_table() {
     },
   });
 
+  //first table show
   $("#vldTbl").dataTable({
     data: x,
     columns: [
@@ -30,18 +35,21 @@ function first_table() {
     ],
   });
 
+  //take Json for second table and make a link
   function openTbl(link) {
     console.log("validate is " + link);
     var url = "https://beaconcha.in/api/v1/validator/stats/";
 
     window.open("/tbl.html?" + "link=" + link, "_self");
   }
+
+  //marge links together with input
   $("#searchBtn").on("click", () => {
     var linkInput = $("#inputVld").val();
     openTbl(linkInput);
   });
 
-
+//use Enter to action on input
 $('#inputVld').keyup(function(e){
   if(e.keyCode == 13)
   {
@@ -49,6 +57,7 @@ $('#inputVld').keyup(function(e){
   }
 });
 
+//take validator index in second row for make a link for API
   $("tr").on("click", function () {
     var linkVld = $(this).find("td:nth-child(2)").text();
     openTbl(linkVld);
@@ -59,6 +68,8 @@ function secondTable(apilink) {
   $.ajax({
     type: "GET",
     async: false,
+
+    //make API link for second table
     url: "https://beaconcha.in/api/v1/validator/stats/" + apilink,
     data: {},
     success: (data) => {
@@ -78,6 +89,7 @@ function secondTable(apilink) {
           orphaned = "null";
         }
 
+        //push data from json in a val
         x.push({
           validatorindex: data.data[i].validatorindex,
           day: data.data[i].day,
@@ -94,6 +106,7 @@ function secondTable(apilink) {
     },
   });
 
+  //second table validator
   $("#vldTbl").dataTable({
     data: x,
     columns: [

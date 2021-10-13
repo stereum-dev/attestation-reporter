@@ -1,0 +1,39 @@
+body{
+    background: rgb(230, 225, 225);
+  }
+  .flexVld{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    display: flex;
+    width: 100%;
+    background: rgb(37, 36, 37);
+    color: rgb(238, 237, 237);
+    padding: 25px;
+    box-sizing: border-box;
+  }
+  .button-success{
+    color: white;
+              border-radius: 4px;
+              text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+              background: rgb(28, 184, 65);
+              height: 32px;
+              width: 90px;
+              /* this is a green */
+  } 
+  .container{
+    height: 81vh;
+    width: 95vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(189, 186, 186);
+  }
+  .container .tblFirst{
+    width: 100vw;
+    height: 80vh;
+  }
+  #inputVld{
+  color: rgb(39, 38, 38);
+  }
+  
