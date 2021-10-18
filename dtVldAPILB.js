@@ -1,6 +1,17 @@
-//it's a function to take data for first table at the beginning(leaderboard)
+function dateTomili(date){
+  var date1=date *24*60*60*1000
+  return date1;
+}
+function dateConvert(date){
+  var n = Date.now();
+//console.log("last is "+date);
+  var date=new Date((n-(date*24*60*60*1000))).toISOString();
+  var dateSplit=date.split('T');
+  return dateSplit[0]
 
+}
 function first_table() {
+  //get data from api
   var x = [];
   $.ajax({
     type: "GET",
@@ -9,8 +20,6 @@ function first_table() {
     data: {},
     success: (data) => {
       xdata = data.data.slice(0, 10);
-
-      //push Json to a var as a data
       for (var i in data.data) {
         x.push({
           validatorindex: data.data[i].validatorindex,
@@ -23,8 +32,8 @@ function first_table() {
     },
   });
 
-  //first table show
   $("#vldTbl").dataTable({
+    
     data: x,
     columns: [
       { data: "rank7d", searchable: false },
@@ -35,21 +44,17 @@ function first_table() {
     ],
   });
 
-  //take Json for second table and make a link
   function openTbl(link) {
-    console.log("validate is " + link);
     var url = "https://beaconcha.in/api/v1/validator/stats/";
 
     window.open("/tbl.html?" + "link=" + link, "_self");
   }
-
-  //marge links together with input
   $("#searchBtn").on("click", () => {
     var linkInput = $("#inputVld").val();
     openTbl(linkInput);
   });
 
-//use Enter to action on input
+
 $('#inputVld').keyup(function(e){
   if(e.keyCode == 13)
   {
@@ -57,23 +62,29 @@ $('#inputVld').keyup(function(e){
   }
 });
 
-//take validator index in second row for make a link for API
-  $("tr").on("click", function () {
+  $("#vldTbl").on("click","tr", function () {
     var linkVld = $(this).find("td:nth-child(2)").text();
     openTbl(linkVld);
   });
 }
 function secondTable(apilink) {
+  var count = 0;
+  var startDate=0;
+  var endDate =0;
+  var countData=0;
+  var dayI=[];
+
   var x = [];
   $.ajax({
     type: "GET",
     async: false,
-
-    //make API link for second table
     url: "https://beaconcha.in/api/v1/validator/stats/" + apilink,
     data: {},
     success: (data) => {
-      var count = 0;
+      //console.log(data)
+      var endDay=data.data[0].day;
+      //console.log("end "+endDay)
+      //console.log(data.data)
       for (var i in data.data) {
         if (count < 1) {
           count++;
@@ -88,9 +99,20 @@ function secondTable(apilink) {
         } else {
           orphaned = "null";
         }
+        dayI.push(data.data[i].day);
 
-        //push data from json in a val
+      //if counter== end array
+      var dayFirest=0;
+
+      //check min max day
+
+      //var min=Math.min.apply(Math,dayI);
+      var max=Math.max.apply(Math,dayI);
+      //  day max / 30
+      var min=Math.min.apply(Math,dayI);
+
         x.push({
+          Date:dateConvert((endDay-data.data[i].day)),
           validatorindex: data.data[i].validatorindex,
           day: data.data[i].day,
           start_balance: data.data[i].start_balance,
@@ -102,14 +124,65 @@ function secondTable(apilink) {
           missed_attestations: data.data[i].missed_attestations,
           deposits_amount: data.data[i].deposits_amount,
         });
+        
+       
+       
+        
       }
+      var count0=0;
+      var count1=0;
+      var n = Date.now();
+        var checkDate=new Date(n);
+       // console.log(new Date(checkDate.getFullYear(),(checkDate.getMonth()-1),checkDate.getDate()))
+
+      x.forEach((element,i) => {
+        var datenow=new Date(Date.now()-((dateTomili(max) -dateTomili(element.day))));
+
+        //console.log(new Date(new Date(checkDate.getFullYear(),(checkDate.getMonth()-1),
+       // datenow.getDate())))
+          var date1=new Date(new Date(checkDate.getFullYear(),(checkDate.getMonth()-1),
+          checkDate.getDate()));
+          var date1Split=date1.toISOString().split('T');
+           var date2Split=datenow.toISOString().split('T');
+
+        if(date2Split[0].substr(0,8)===date1Split[0].substr(0,8)){    
+          if(element.missed_attestations===0 )
+          {             
+              count0++;
+
+            
+          } else if(element.missed_attestations!=0 ){
+                      console.log("ok")    
+
+                      console.log("Err" +count1)    
+
+           count1++;
+          }
+        }
+        if(x.length===(i+1)){
+if(count0>0 & count1<1){
+  console.log(count0) 
+  console.log(count1)    
+   
+
+$('#log').append('<h1 style="color: green;">Success</h1>');
+}else{
+  console.log(count0) 
+  console.log(count1)   
+  $('#log').append('<h1 style="color: red;">Error</h1>');
+
+}
+        }
+      });
+      
+      
     },
   });
 
-  //second table validator
   $("#vldTbl").dataTable({
     data: x,
     columns: [
+      {data:"Date",searchable:false},
       { data: "day", searchable: true },
       { data: "start_balance", searchable: false },
       { data: "end_balance", searchable: false },
